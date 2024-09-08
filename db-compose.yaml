@@ -1,0 +1,23 @@
+services: 
+  mongodb:
+    image: mongo  # Utilise l'image officielle de MongoDB
+    ports: 
+      - 27017:27017  # Mappe le port 27017 de l'hôte au port 27017 du conteneur MongoDB
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=admin  # Définit le nom d'utilisateur administrateur par défaut de MongoDB
+      - MONGO_INITDB_ROOT_PASSWORD=password  # Définit le mot de passe administrateur par défaut de MongoDB
+    volumes:
+      - mongo-data:/data/db  # Monte un volume nommé "mongo-data" pour stocker les données de la base MongoDB
+
+  mongo-express:
+    image: mongo-express  # Utilise l'image officielle de Mongo Express, une interface graphique pour MongoDB
+    ports: 
+      - 8081:8081  # Mappe le port 8081 de l'hôte au port 8081 du conteneur Mongo Express
+    environment:
+      - ME_CONFIG_MONGODB_ADMINUSERNAME=admin  # Définit le nom d'utilisateur pour se connecter à MongoDB
+      - ME_CONFIG_MONGODB_ADMINPASSWORD=password  # Définit le mot de passe pour se connecter à MongoDB
+      - ME_CONFIG_MONGODB_SERVER=mongodb  # Spécifie le serveur MongoDB auquel se connecter (dans ce cas, "mongodb", qui est le nom du service MongoDB défini ci-dessus)
+
+volumes:
+  mongo-data:
+    driver: local  # Définit le driver du volume "mongo-data" comme étant local

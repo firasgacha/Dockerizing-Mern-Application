@@ -1,0 +1,22 @@
+services: 
+  node-app:
+    # Utilise l'image Docker "node-app" version 1.0 ou une image push avec son index digest (sh255gteikj...)
+    image: node-app:1.0  
+    ports: 
+      - 3000:3000  # Mappe le port 3000 de l'hôte au port 3000 du conteneur
+
+  react-app:
+    # Utilise l'image Docker "react-app" version 1.0 ou une image push avec son index digest (sh255gteikj...)
+    image: react-app:1.0  
+    ports: 
+      - 5173:80  # Mappe le port 8080 de l'hôte au port 80 du conteneur
+
+  mongodb:
+    extends:
+      file: db-compose.yaml  # Étend la configuration à partir du fichier "db-compose.yaml"
+      service: mongodb  # Utilise le service "mongodb" défini dans "db-compose.yaml"
+
+  mongo-express:
+    extends:
+      file: db-compose.yaml  # Étend la configuration à partir du fichier "db-compose.yaml"
+      service: mongo-express  # Utilise le service "mongo-express" défini dans "db-compose.yaml"
